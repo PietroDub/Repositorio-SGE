@@ -56,7 +56,7 @@
 
                     </ul>
                 </div>
-                @if (Context.Session.GetString("usuario") != null)
+                @if (Context.Session.GetString("usuario") != null) //procura a sessão e verifica se está nula , se n exibe o conteuúdo abaixo
                 {
                     <div class="d-flex justify-content-end">
                         <a class="btn btn-outline-light text-dark" asp-area="" asp-controller="Usuarios" asp-action="SelecionaTipo" asp-route-id="@Context.Session.GetString("usuarioId")">Olá, @Context.Session.GetString("usuario") </a>

@@ -6,9 +6,22 @@ namespace SGE.Models
     public class Aluno
     {
         public Guid AlunoId { get; set; }
+
+        [Required(ErrorMessage = "O campo Matrícula é obrigatório")]
+        [Display(Name = "Matrícula")]
         public string Matricula { get; set; }
+
+        [Required(ErrorMessage = "O campo Nome é obrigatório")]
+        [MinLength(3, ErrorMessage = "O campo Nome deve ter no mínimo 3 caracteres")]
+        [StringLength(100, ErrorMessage = "O campo Nome deve ter no" + "máximo 100 caracteres")]
+        [Display(Name = "Nome do Aluno")]
         public string AlunoNome { get; set; }
+
+        [Required(ErrorMessage = "O campo Email é obrigatório")]
+        [Display(Name = "E-mail")]
         public string Email { get; set; }
+
+        [Required(ErrorMessage = "O campo Celular é obrigatório")]
         public string Celular { get; set; }
         public string Logradouro { get; set; }
         public string Numero { get; set; }
