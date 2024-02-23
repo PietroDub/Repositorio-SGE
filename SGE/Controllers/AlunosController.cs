@@ -22,7 +22,7 @@ namespace SGE.Controllers
         }
 
         // GET: Alunos
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(Guid id, [Bind("AlunoId,Matricula,AlunoNome,Email,Celular,Logradouro,Numero,Cidade,Estado,CEP,Senha,DataNascimento,CadAtivo,DataCadastro,CadInativo,TipoUsuarioId,UrlFoto")] Aluno aluno, string ConfirmeSenha)
         {
 
             if (HttpContext.Session.GetString("email") == null)
@@ -41,7 +41,25 @@ namespace SGE.Controllers
             }
             var sGEContext = _context.Alunos.Include(a => a.TipoUsuario);
             return View(await sGEContext.ToListAsync());
+
+
+            //var filePath = Path.Combine(Directory.GetCurrentDirectory(), "Data\\Content\\Photo", aluno.UrlFoto);
+            //if (System.IO.File.Exists(filePath))
+            //{
+            //    //carrega a imagem
+            //    var imageBytes = await System.IO.File.ReadAllBytesAsync(filePath);
+            //    var imageBase64 = Convert.ToBase64String(imageBytes);
+
+            //    //Exibe a imagem na view
+            //    ViewData["Imagem"] = imageBase64;
+
+            //}
+            //ViewData["TipoUsuarioId"] = new SelectList(_context.TiposUsuario, "TipoUsuarioId", "TipoUsuarioId", aluno.TipoUsuarioId);
+            //return View(aluno);
+
+
         }
+
 
         // GET: Alunos/Details/5
         public async Task<IActionResult> Details(Guid? id)
