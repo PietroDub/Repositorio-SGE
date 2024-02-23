@@ -15,7 +15,6 @@
         <div class="col-md-4 text-center">
             <div class="alert alert-danger">
                 <strong> @ViewData["Erro"] </strong>
-
             </div>
         </div>
     </div>
@@ -25,8 +24,21 @@
     <div class="col-md-4">
         @if (ViewData["Imagem"] != null)
         {
-            <img src="data:image/png;base64,@ViewData["Imagem"]" alt="Foto do Perfil" />
+            <img src="data:image/png;base64,@ViewData["Imagem"]"
+                 alt="Foto do Perfil" height="100" />
         }
+
+        <button class="btn btn-outline-secondary" id="alterarFoto">
+            Alterar Foto do Perfil
+        </button>
+
+        <form asp-action="AlterarFoto" id="formFoto"
+              asp-route-id="@Model.AlunoId" method="post"
+              enctype="multipart/form-data">
+            <input type="file" name="novaFoto" id="novaFoto"
+                   class="d-none form-control" />
+        </form>
+
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="AlunoId" />
@@ -45,7 +57,7 @@
                 <input asp-for="Email" class="form-control" />
                 <span asp-validation-for="Email" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group">ccccccccccccccccccccx
                 <label asp-for="Celular" class="control-label"></label>
                 <input asp-for="Celular" class="form-control" />
                 <span asp-validation-for="Celular" class="text-danger"></span>
@@ -105,9 +117,7 @@
                 <span asp-validation-for="CadInativo" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="TipoUsuarioId" class="control-label"></label>
-                <select asp-for="TipoUsuarioId" class="form-control" asp-items="ViewBag.TipoUsuarioId"></select>
-                <span asp-validation-for="TipoUsuarioId" class="text-danger"></span>
+                <input asp-for="TipoUsuarioId" class="form-control" type="hidden" value="@ViewData["TipoUsuarioId"]" />
             </div>
             <div class="form-group">
                 <label asp-for="UrlFoto" class="control-label"></label>
@@ -118,6 +128,7 @@
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>
         </form>
+
     </div>
 </div>
 
@@ -125,6 +136,14 @@
     <a asp-action="Index">Back to List</a>
 </div>
 
+<script>
+    document.getElementById("alterarFoto").addEventListener("click", function () {
+        document.getElementById("novaFoto").classList.remove("d-none");
+    });
+    document.getElementById("novaFoto").addEventListener("change", function () {
+        document.getElementById("formFoto").submit();
+    });
+</script>
 @section Scripts {
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
